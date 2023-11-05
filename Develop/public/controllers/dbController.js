@@ -17,5 +17,16 @@ router.post("/api/notes",(req,res)=>{
     storedNotesData.push(newNote)
     fs.writeFileSync("../db/db.json",JSON.stringify(storedNotesData,null,4));
     console.log(`${req.method} request to ${req.url}`)
-    res.json(newPet)
+    res.json(newNote)
 })
+router.get("/:api/notes/:noteId",(req,res)=>{
+    const notes = JSON.parse(fs.readFileSync("../db/db.json"))
+    const id = req.params.noteId;
+    for (let i = 0; i < notes.length; i++) {
+        if(notes[i].id==id){
+            return res.json(notes[i])
+        } 
+    }
+    return res.status(404).send("sorry, no such notes")
+})
+module.exports = router;
