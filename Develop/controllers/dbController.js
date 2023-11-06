@@ -3,9 +3,9 @@ const router = express.Router();
 const fs = require('fs');
 
 router.get('/api/notes',(req,res)=>{
-    const pets = JSON.parse(fs.readFileSync("../db/db.json"))
+    const notes = JSON.parse(fs.readFileSync("../db/db.json"))
     console.log(`${req.method} request to ${req.url}`)
-    res.json(pets);
+    res.json(notes);
 })
 router.post("/api/notes",(req,res)=>{
     const newNote = {
